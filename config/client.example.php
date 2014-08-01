@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * File client.example.php
+ */
+
+/**
+ * Server settings.
+ */
+/* Server end point. */
+$config['server_endpoint'] = 'https://wrappy.ws/client';
+/* Server endpoint method. */
+$config['server_endpoint_method'] = 'GET';
+/* Server endpoint version. */
+$config['server_endpoint_version'] = '1.0';
+
+/**
+ * Client settings.
+ */
+/* Client email address. */
+$config['client_email'] = 'user@email';
+/* Client password */
+$config['client_password'] = 'password';
+
+/**
+ * System settings.
+ */
+/* Application salt */
+$config['system']['salt'] = 'DEFAULT-SALT';
