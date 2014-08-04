@@ -53,7 +53,7 @@ try {
       call_user_func(array($obj, &$method));
     }
     else {
-      exception('10: Hash validation failed.');
+      exception('Error: Hash validation failed.');
     }
   }
 

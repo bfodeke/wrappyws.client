@@ -16,8 +16,12 @@ class User {
 
   private $hash;
 
-  public function logIn($variables = array()) {
+  public function logIn($variables = array(), $logs = false) {
     global $config;
+
+    if ($logs) {
+      $config['server_endpoint'] = rtrim($config['server_endpoint'], '/') . '/logs';
+    }
 
     $this->server_endpoint = $config['server_endpoint'];
     $this->method_name = urlencode($config['server_endpoint_method']);
@@ -58,20 +62,13 @@ class User {
       exit("$this->method_name failed: " . curl_error($ch) . '(' . curl_errno($ch) . ')');
     }
 
+    if (strstr($httpResponse, 'Error:')) {
+      exit("$this->method_name failed: " . '(' . $httpResponse . ')');
+    }
+
     $data = \WCrypt\Data::decrypt($httpResponse);
 
     return $data;
-  }
-
-  public static function getSSLPage($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HEADER, FALSE);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_SSLVERSION, 3);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    return $result;
   }
 
 }

@@ -13,6 +13,7 @@ $loader->registerNamespaces(array(
   'WCrypt' =>  array(WRAPPY_ROOT . '/modules/contrib'),
   'WClient' =>  array(WRAPPY_ROOT . '/modules/contrib'),
   'WForm' =>  array(WRAPPY_ROOT . '/modules/contrib'),
+  'WNet' =>  array(WRAPPY_ROOT . '/modules/contrib'),
 
   // Custom modules.
   'Contact' =>  array(WRAPPY_ROOT . '/modules/custom'),
