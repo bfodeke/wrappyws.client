@@ -57,30 +57,31 @@ try {
     }
   }
 
-  /*
-  $app = function ($request, $response) {
-    $response->writeHead(200, array('Content-Type' => 'text/plain'));
-    $response->end("...Hello World\n");
-  };
-
-  $loop = React\EventLoop\Factory::create();
-  $socket = new React\Socket\Server($loop);
-  $http = new React\Http\Server($socket, $loop);
-
-  $http->on('request', $app);
-  echo "Server running at http://127.0.0.1:1337\n";
-
-  $socket->listen(1337);
-  $loop->run();
-  */
 } catch (Exception $e) {
   $message = "We're sorry, but something went wrong.";
   exception($message);
   //throw $e;
 }
 
-
 function exception($message) {
-  http_response_code(500);
+  // For 4.3.0 <= PHP <= 5.4.0
+  if (!function_exists('http_response_code')) {
+    function http_response_code($newcode = NULL) {
+      static $code = 500;
+      if ($newcode !== NULL) {
+        header('X-PHP-Response-Code: ' . $newcode, TRUE, $newcode);
+        if (!headers_sent()) {
+          $code = $newcode;
+        }
+      }
+      return $code;
+    }
+  }
+  else {
+    http_response_code(500);
+  }
+
   print $message;
 }
+
+

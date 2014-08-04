@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    $vendorDir . '/react/promise/src/React/Promise/functions.php',
     $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Random.php',
 );
