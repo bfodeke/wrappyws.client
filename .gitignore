@@ -1,2 +1,3 @@
 config/client.php
 .idea/*
+composer.lock

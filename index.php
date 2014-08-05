@@ -25,6 +25,17 @@ require 'config/modules.php';
 
 
 try {
+  apache_setenv('no-gzip', 1);
+  ini_set('output_buffering', 0);
+  ini_set('zlib.output_compression', 'Off');
+  ini_set('implicit_flush', 1);
+  // Close session.
+  session_write_close();
+  for ($i = 0; $i < ob_get_level(); $i++) {
+    ob_end_flush();
+  }
+  ob_implicit_flush(true);
+
   global $config;
   $salt = md5($config['system']['salt']);
 

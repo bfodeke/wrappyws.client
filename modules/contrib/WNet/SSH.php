@@ -6,16 +6,66 @@
 
 namespace WNet;
 
+/**
+ * Class SSH
+ * @package WNet
+ */
 class SSH {
+
+  /**
+   * Server host name.
+   * @var string
+   */
   public $host = '127.0.0.1';
+
+  /**
+   * Server port.
+   * @var string
+   */
   public $port = '22';
+
+  /**
+   * Server user name.
+   * @var string
+   */
   public $user = 'root';
+
+  /**
+   * Server user password.
+   * @var string
+   */
   public $password = '';
+
+  /**
+   * Server RSA private key.
+   * @var string
+   */
   public $rsaKey = '';
+
+  /**
+   * Server ssh timeout.
+   * @var int
+   */
   public $timeout = 15;
+
+  /**
+   * Server commands.
+   * @var array
+   */
   public $commands = array();
+
+  /**
+   * SSH results.
+   * @var array
+   */
   public $sshResult = array();
+
+  /**
+   * Log token.
+   * @var
+   */
   public $logToken;
+
   /**
    * @var int
    */
@@ -98,7 +148,7 @@ class SSH {
         foreach ($this->commands as $key => $command) {
           $this->sshResult = '';
 
-          // Clean command.
+          // Clean output.
           $log_command = preg_replace('/--password=[^\s]*/is', '--password=********', $command['command']);
           $log_command = preg_replace("/IDENTIFIED BY '[^']*/is", "IDENTIFIED BY '********'", $log_command);
 
@@ -116,7 +166,8 @@ class SSH {
     session_start();
 
     if ($config['system']['logs']) {
-      print_r(var_export($results));
+      // Return result as array.
+      //print_r(var_export($results));
     }
 
     return $results;
@@ -135,7 +186,7 @@ class SSH {
       file_put_contents($filename, $data, FILE_APPEND);
 
       // Send result to server.
-      \WForm\Data::logs($this->logToken, $data);
+      \WForm\Data::logs($this->logToken, $data, $live = TRUE);
     }
 
     if (!$log_only) {
